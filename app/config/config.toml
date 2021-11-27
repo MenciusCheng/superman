@@ -1,0 +1,10 @@
+
+[server]
+	service_name="superman"
+	port = 10000
+
+[log]
+	level="debug"
+	logpath="logs"
+	rotate="hour"
+
