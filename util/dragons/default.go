@@ -1,5 +1,10 @@
 package dragons
 
+import (
+	"context"
+	"github.com/MenciusCheng/superman/util/golang/sql"
+)
+
 var Default = New()
 
 func Init(options ...Option) {
@@ -12,4 +17,8 @@ func Shutdown() error {
 
 func Scan(v interface{}) error {
 	return Default.Scan(v)
+}
+
+func SQLClient(ctx context.Context, name string) *sql.Group {
+	return Default.SQLClient(name)
 }
