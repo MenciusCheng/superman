@@ -44,3 +44,25 @@ func TestCampOrderDao_GetOrder(t *testing.T) {
 		})
 	}
 }
+
+func TestCampOrderDao_GenModel(t *testing.T) {
+	type args struct {
+		ctx context.Context
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			args: args{ctx: context.Background()},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := cod.GenModel(tt.args.ctx); (err != nil) != tt.wantErr {
+				t.Errorf("GenModel() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}

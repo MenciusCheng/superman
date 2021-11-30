@@ -2,9 +2,11 @@ package dao
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"github.com/MenciusCheng/superman/conf"
 	"github.com/MenciusCheng/superman/util/dragons/proxy"
+	"github.com/MenciusCheng/superman/util/gendbinfo"
 )
 
 type CampOrderDao struct {
@@ -37,4 +39,17 @@ func (d *CampOrderDao) GetOrder(ctx context.Context) error {
 	err := d.db.Master(ctx).Table("order_form").Take(&OrderFormData).Error
 	fmt.Printf("OrderFormData: %+v", OrderFormData)
 	return err
+}
+
+func (d *CampOrderDao) GenModel(ctx context.Context) error {
+	gendbinfo.Gen(d)
+	return nil
+}
+
+func (d *CampOrderDao) RawRows(sql string, values ...interface{}) (*sql.Rows, error) {
+	return d.db.Master(context.Background()).Raw(sql, values).Rows()
+}
+func (d *CampOrderDao) RawScan(dest interface{}, sql string, values ...interface{}) error {
+	db := d.db.Master(context.Background()).Raw(sql, values).Scan(dest)
+	return db.Error
 }
