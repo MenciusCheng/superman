@@ -3,6 +3,7 @@ package leetcode
 import (
 	"fmt"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -11,6 +12,7 @@ type Subject struct {
 	Url  string
 	Ans  string
 
+	QuestionNum   int
 	AnsFuncName   string
 	AnsParams     []SubjectParam
 	AnsReturnType string
@@ -31,6 +33,13 @@ func NewSubject(desc string, url string, ans string) (*Subject, error) {
 	if err := subject.parseAns(); err != nil {
 		return nil, err
 	}
+
+	questionNumReg := regexp.MustCompile(`^\s*(\d+)`)
+	questionNumSubmatch := questionNumReg.FindStringSubmatch(subject.Desc)
+	if len(questionNumSubmatch) != 2 {
+		return nil, fmt.Errorf("questionNumSubmatch length is not equal to 2: %+v", questionNumSubmatch)
+	}
+	subject.QuestionNum, _ = strconv.Atoi(questionNumSubmatch[1])
 
 	return subject, nil
 }
@@ -73,6 +82,8 @@ func (s *Subject) parseAns() error {
 			body = "return \"\""
 		case "[]int":
 			body = "return []int{}"
+		case "[][]int":
+			body = "return [][]int{}"
 		}
 		if body != "" {
 			ansArr[1] = body

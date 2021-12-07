@@ -11,46 +11,46 @@ import (
 
 func main() {
 	desc := `
-1. 两数之和
-给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。
-
-你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。
-
-你可以按任意顺序返回答案。
+1034. 边界着色
+给你一个大小为 m x n 的整数矩阵 grid ，表示一个网格。另给你三个整数 row、col 和 color 。网格中的每个值表示该位置处的网格块的颜色。
+当两个网格块的颜色相同，而且在四个方向中任意一个方向上相邻时，它们属于同一连通分量。
+连通分量的边界 是指连通分量中的所有与不在分量中的网格块相邻（四个方向上）的所有网格块，或者在网格的边界上（第一行/列或最后一行/列）的所有网格块。
+请你使用指定颜色 color 为所有包含网格块 grid[row][col] 的 连通分量的边界 进行着色，并返回最终的网格 grid 。
 
 示例 1：
 
-输入：nums = [2,7,11,15], target = 9
-输出：[0,1]
-解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。
+输入：grid = [[1,1],[1,2]], row = 0, col = 0, color = 3
+输出：[[3,3],[3,2]]
+
 示例 2：
 
-输入：nums = [3,2,4], target = 6
-输出：[1,2]
+输入：grid = [[1,2,2],[2,3,2]], row = 0, col = 1, color = 3
+输出：[[1,3,3],[2,3,3]]
+
 示例 3：
 
-输入：nums = [3,3], target = 6
-输出：[0,1]
+输入：grid = [[1,1,1],[1,1,1],[1,1,1]], row = 1, col = 1, color = 2
+输出：[[2,2,2],[2,1,2],[2,2,2]]
 
 提示：
 
-2 <= nums.length <= 104
--109 <= nums[i] <= 109
--109 <= target <= 109
-只会存在一个有效答案
-进阶：你可以想出一个时间复杂度小于 O(n2) 的算法吗？
+m == grid.length
+n == grid[i].length
+1 <= m, n <= 50
+1 <= grid[i][j], color <= 1000
+0 <= row < m
+0 <= col < n
 `
 
 	url := `
-https://leetcode-cn.com/problems/two-sum/
+https://leetcode-cn.com/problems/coloring-a-border/
 `
 
 	cal := `
-func twoSum(nums []int, target int) []int {
+func colorBorder(grid [][]int, row int, col int, color int) [][]int {
 
 }
 `
-	question := "q1"
 
 	month := "m202112"
 
@@ -58,6 +58,8 @@ func twoSum(nums []int, target int) []int {
 	if err != nil {
 		panic(err)
 	}
+
+	question := fmt.Sprintf("q%d", subject.QuestionNum)
 
 	tmpl, err := template.New("CheckInSubject").Parse(leetcode.CheckInSubject)
 	if err != nil {
